@@ -1,4 +1,4 @@
-module go1234.cn/account
+module github.com/ztaoing/account
 
 go 1.14
 
