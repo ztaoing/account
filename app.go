@@ -1,10 +1,10 @@
 package newResk
 
 import (
+	_ "github.com/ztaoing/account/apis/web"
+	_ "github.com/ztaoing/account/core/accounts"
 	"github.com/ztaoing/infra"
 	"github.com/ztaoing/infra/base"
-	_ "go1234.cn/account/apis/web"
-	_ "go1234.cn/account/core/accounts"
 )
 
 func init() {

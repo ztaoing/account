@@ -2,9 +2,9 @@ package web
 
 import (
 	"github.com/kataras/iris"
+	"github.com/ztaoing/account/services"
 	"github.com/ztaoing/infra"
 	"github.com/ztaoing/infra/base"
-	"go1234.cn/account/services"
 )
 
 //web api是基于iris的

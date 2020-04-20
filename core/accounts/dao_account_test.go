@@ -7,8 +7,8 @@ import (
 	"github.com/sirupsen/logrus"
 	. "github.com/smartystreets/goconvey/convey"
 	"github.com/tietang/dbx"
+	_ "github.com/ztaoing/account/testx"
 	"github.com/ztaoing/infra/base"
-	_ "go1234.cn/account/testx"
 	"testing"
 )
 
