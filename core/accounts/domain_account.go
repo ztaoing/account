@@ -105,12 +105,13 @@ func (domain *accountDomain) createAccountNo() {
 
 //转账业务
 func (a *accountDomain) Transfer(dto services.AccountTransferDTO) (status services.TransferedStatus, err error) {
-	base.Tx(func(runner *dbx.TxRunner) error {
+	err = base.Tx(func(runner *dbx.TxRunner) error {
 		//把事务绑定到上下文对象汇总
 		ctx := base.WithValueContext(context.Background(), runner)
 		status, err := a.TransferWithContext(ctx, dto)
 		return err
 	})
+
 }
 
 //必须在base.Tx事务块里运行，不能单独运行，因为此方法中没有单独的事务
@@ -130,7 +131,7 @@ func (a *accountDomain) TransferWithContext(ctx context.Context, dto services.Ac
 		accountDao := AccountDao{runner: runner}
 		accountLogDao := AccountLogDao{runner: runner}
 		//更新余额时，检查余额
-		rows, err := accountDao.UpdateBalance(dto.TradeBody.AccountNo, amount)
+		rows, err := accountDao.UpdateBalance(dto.TradeBody.AccountNum, amount)
 		if err != nil {
 			status = services.TransferedStatusFailure
 			return err
@@ -143,7 +144,7 @@ func (a *accountDomain) TransferWithContext(ctx context.Context, dto services.Ac
 		}
 		//执行成功
 		//写入流水记录
-		account := accountDao.GetOne(dto.TradeBody.AccountNo)
+		account := accountDao.GetOne(dto.TradeBody.AccountNum)
 		if account == nil {
 			//没有查询到记录
 			return errors.New("未查询到记录，账户出错")
